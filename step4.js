@@ -1,9 +1,19 @@
 var fs = require('fs');
- var buf = fs.readFile(process.argv[2],'utf8',callback);
+var path = require('path');
 
- function callback (err, data){
- 	if(!err){
-		 var array = data.split('\n');
-		 console.log(array.length -1);
- 	}
- }
+var directory = process.argv[2]
+var extention = '.' + process.argv[3];
+
+var callback = function(err, list){
+	if(err){
+		console.log(err);
+		return;
+	}
+	list.forEach(function(element){
+		if(path.extname(element)===  extention){
+			console.log(element);
+		}
+	})
+};
+
+fs.readdir(directory,callback);
